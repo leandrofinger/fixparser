@@ -162,13 +162,17 @@ export default class Message {
         this.reset();
 
         // Add other tags
-        fields.forEach((field) => {
-            this.data.push(field);
-        });
+        this.addFields(fields);
     }
 
     addField(field) {
         this.data.push(field);
+    }
+
+    addFields(...fields) {
+        fields.forEach((field) => {
+            this.data.push(field);
+        });
     }
 
     getField(tag) {

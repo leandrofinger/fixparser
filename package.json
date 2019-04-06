@@ -1,13 +1,13 @@
 {
   "name": "fixparser",
-  "version": "2.7.5",
+  "version": "2.7.6",
   "description": "FIX 5.0SP2 Parser",
   "main": "./fixparser.js",
   "module": "./src/FIXParser.js",
   "browser": "./browser.js",
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/logotype/fixparser.git"
+    "url": "https://github.com/leandrofinger/fixparser.git"
   },
   "scripts": {
     "eslint": "eslint *.babel.js *.config.js spec src test prebuild",

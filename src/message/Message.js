@@ -162,7 +162,7 @@ export default class Message {
         this.reset();
 
         // Add other tags
-        this.addFields(fields);
+        this.addFields(...fields);
     }
 
     addField(field) {

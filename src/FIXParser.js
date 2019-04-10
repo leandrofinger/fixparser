@@ -5,9 +5,13 @@
  * Copyright 2018 Victor Norgren
  * Released under the MIT license
  */
-import { EventEmitter } from 'events';
+import {
+    EventEmitter
+} from 'events';
 
-import { timestamp } from './util/util';
+import {
+    timestamp
+} from './util/util';
 import FIXParserBase from './FIXParserBase';
 import FIXParserClientSocket from './handler/FIXParserClientSocket';
 import FIXParserClientWebsocket from './handler/FIXParserClientWebsocket';
@@ -25,7 +29,11 @@ const PROTOCOL_TCP = 'tcp';
 const PROTOCOL_WEBSOCKET = 'websocket';
 
 export default class FIXParser extends EventEmitter {
-    constructor() {
+    constructor({
+        fixVersion,
+        setMessageSequence = null,
+        getMessageSequence = null
+    }) {
         super();
         this.fixParserBase = new FIXParserBase();
         this.clientHandler = null;
@@ -33,10 +41,16 @@ export default class FIXParser extends EventEmitter {
         this.port = null;
         this.sender = null;
         this.target = null;
-        this.messageSequence = 1;
         this.heartBeatInterval = null;
         this.heartBeatIntervalId = null;
-        this.fixVersion = 'FIX.5.0SP2';
+        this.fixVersion = fixVersion;
+
+        Object.defineProperty(this, 'messageSequence', {
+            set: (setMessageSequence) ? setMessageSequence : (seq) => {
+                this.messageSequence = seq;
+            },
+            get: (getMessageSequence) ? getMessageSequence : () => this.messageSequence || 1
+        });
     }
 
     connect({
@@ -45,8 +59,7 @@ export default class FIXParser extends EventEmitter {
         protocol = PROTOCOL_TCP,
         sender = 'SENDER',
         target = 'TARGET',
-        heartbeatIntervalMs = 30000,
-        fixVersion = this.fixVersion
+        heartbeatIntervalMs = 30000
     } = {}) {
         switch (protocol) {
             case PROTOCOL_TCP:
@@ -65,7 +78,7 @@ export default class FIXParser extends EventEmitter {
         this.clientHandler.sender = sender;
         this.clientHandler.target = target;
         this.clientHandler.heartBeatInterval = heartbeatIntervalMs;
-        this.clientHandler.fixVersion = fixVersion;
+        this.clientHandler.fixVersion = this.fixVersion;
         this.clientHandler.connect();
     }
 
@@ -95,15 +108,33 @@ export default class FIXParser extends EventEmitter {
     }
 }
 
-export { Field };
-export { Fields };
-export { Message };
-export { Messages };
-export { Side };
-export { OrderTypes };
-export { HandlInst };
-export { TimeInForce };
-export { EncryptMethod };
+export {
+    Field
+};
+export {
+    Fields
+};
+export {
+    Message
+};
+export {
+    Messages
+};
+export {
+    Side
+};
+export {
+    OrderTypes
+};
+export {
+    HandlInst
+};
+export {
+    TimeInForce
+};
+export {
+    EncryptMethod
+};
 
 /**
  * Export global to the window object.

@@ -5,7 +5,9 @@
  * Copyright 2018 Victor Norgren
  * Released under the MIT license
  */
-import { EventEmitter } from 'events';
+import {
+    EventEmitter
+} from 'events';
 
 import * as Messages from '../constants/ConstantsMessage';
 import * as Fields from '../constants/ConstantsField';

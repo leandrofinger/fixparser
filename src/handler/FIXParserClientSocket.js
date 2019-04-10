@@ -5,7 +5,9 @@
  * Copyright 2018 Victor Norgren
  * Released under the MIT license
  */
-import { Socket } from 'net';
+import {
+    Socket
+} from 'net';
 
 import FIXParserClientBase from './FIXParserClientBase';
 import FrameDecoder from '../util/FrameDecoder';
@@ -30,6 +32,7 @@ export default class FIXParserClientSocket extends FIXParserClientBase {
         });
 
         this.socket.on('error', (error) => {
+            console.warn('Error:', error);
             this.eventEmitter.emit('error', error);
             this.stopHeartbeat();
         });

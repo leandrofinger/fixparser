@@ -179,6 +179,10 @@ export default class Message {
         return this.data.find((field) => field.tag === tag);
     }
 
+    getArrayField(tag) {
+        return this.data.filter((field) => field.tag === tag);
+    }
+
     setField(field) {
         const index = this.data.findIndex((item) => item.tag === field.tag);
         if (index > -1) {

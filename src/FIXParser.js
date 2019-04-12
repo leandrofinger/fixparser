@@ -5,13 +5,9 @@
  * Copyright 2018 Victor Norgren
  * Released under the MIT license
  */
-import {
-    EventEmitter
-} from 'events';
+import { EventEmitter } from 'events';
 
-import {
-    timestamp
-} from './util/util';
+import { timestamp } from './util/util';
 import FIXParserBase from './FIXParserBase';
 import FIXParserClientSocket from './handler/FIXParserClientSocket';
 import FIXParserClientWebsocket from './handler/FIXParserClientWebsocket';
@@ -29,11 +25,7 @@ const PROTOCOL_TCP = 'tcp';
 const PROTOCOL_WEBSOCKET = 'websocket';
 
 export default class FIXParser extends EventEmitter {
-    constructor({
-        fixVersion,
-        setMessageSequence = null,
-        getMessageSequence = null
-    }) {
+    constructor({ fixVersion }) {
         super();
         this.fixParserBase = new FIXParserBase();
         this.clientHandler = null;
@@ -43,14 +35,8 @@ export default class FIXParser extends EventEmitter {
         this.target = null;
         this.heartBeatInterval = null;
         this.heartBeatIntervalId = null;
+        this.messageSequence = 1;
         this.fixVersion = fixVersion;
-
-        Object.defineProperty(this, 'messageSequence', {
-            set: (setMessageSequence) ? setMessageSequence : (seq) => {
-                this.messageSequence = seq;
-            },
-            get: (getMessageSequence) ? getMessageSequence : () => this.messageSequence || 1
-        });
     }
 
     connect({
@@ -108,33 +94,15 @@ export default class FIXParser extends EventEmitter {
     }
 }
 
-export {
-    Field
-};
-export {
-    Fields
-};
-export {
-    Message
-};
-export {
-    Messages
-};
-export {
-    Side
-};
-export {
-    OrderTypes
-};
-export {
-    HandlInst
-};
-export {
-    TimeInForce
-};
-export {
-    EncryptMethod
-};
+export { Field };
+export { Fields };
+export { Message };
+export { Messages };
+export { Side };
+export { OrderTypes };
+export { HandlInst };
+export { TimeInForce };
+export { EncryptMethod };
 
 /**
  * Export global to the window object.
